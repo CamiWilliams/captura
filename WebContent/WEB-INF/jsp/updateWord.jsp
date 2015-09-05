@@ -8,6 +8,9 @@
 <link rel="stylesheet" type="text/css" href="frameworks/styles.css">
 <link href='https://fonts.googleapis.com/css?family=Comfortaa|Lato:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
 
+<link rel="shortcut icon" href="images/captura_mini.png"/>
+<link rel="apple-touch-icon" href="images/captura_apple_icon.png">
+
 <script>
 function play(word, lang) {
 	var audioElement = document.createElement('audio');
@@ -33,10 +36,10 @@ function play(word, lang) {
 	<div class="content">
 		<div class="logo">captura</div>
 		<div style="display:-webkit-inline-box;">
-			<a href="home.html" class="green round-button medium"><span class="glyphicon glyphicon-home medium" aria-hidden="true"></span></a>
+			<a href="home.html" class="teal round-button medium"><span class="glyphicon glyphicon-home medium" aria-hidden="true"></span></a>
 			<a href="camera.html" class="red round-button medium"><span class="glyphicon glyphicon-camera medium" aria-hidden="true"></span></a>
 			<a href="dictionary.html" class="orange round-button medium"><span class="glyphicon glyphicon-book medium" aria-hidden="true"></span></a>
-			<a href="settings.html" class="blue round-button medium"><span class="glyphicon glyphicon-cog medium" aria-hidden="true"></span></a>
+			<a href="settings.html" class="green round-button medium"><span class="glyphicon glyphicon-cog medium" aria-hidden="true"></span></a>
 		</div>
 		<br>
 		<br>

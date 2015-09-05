@@ -9,7 +9,7 @@ body {
 }
 
 .logo {
-	color: #38cfb0;
+	color: #5ec4ff;
 	text-align: center;
 	font-size: 96px;
 	font-family: 'Comfortaa', cursive;
@@ -17,10 +17,6 @@ body {
 
 .ptext {
 	font-family: 'Lato', sans-serif;
-}
-
-.center {
-	width: 100%;
 }
 
 .custom {
@@ -101,7 +97,7 @@ body {
 
 .blue {
 	background: #5ec4ff;
-}
+}38cfb0
 
 .round-button:hover.blue {
     background: #329cd1;
@@ -113,6 +109,22 @@ body {
 
 .round-button:hover.purple {
     background: #8232d1;
+}
+
+.teal {
+	background: #38cfb0;
+}
+
+.round-button:hover.teal {
+    background: #0ea17f;
+}
+
+.yellow {
+	background: #fffb0f;
+}
+
+.round-button:hover.yellow {
+    background: #d1ca00;
 }
 
 .round-button.small {
@@ -164,4 +176,11 @@ body {
     position: absolute;
     right: 5%;
     margin: 20px;
+}
+.list {
+	background-color: #5ec4ff;
+	width: 100%;
+}
+.list-group {
+	padding: 10px;
 }

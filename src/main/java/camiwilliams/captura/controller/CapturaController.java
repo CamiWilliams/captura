@@ -1,6 +1,5 @@
 package camiwilliams.captura.controller;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.clarifai.api.ClarifaiClient;
 import com.clarifai.api.RecognitionRequest;
 import com.clarifai.api.RecognitionResult;
+import com.memetix.mst.language.Language;
+import com.memetix.mst.translate.Translate;
 
 import camiwilliams.captura.Authenticator;
 import camiwilliams.captura.objects.LanguageDictionary;
@@ -211,7 +212,7 @@ public class CapturaController {
 	}
 
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
-	public ModelAndView handleFormUpload(@RequestParam("pic") MultipartFile file, @RequestParam("langSelect") String langDict, Model map) throws IOException{
+	public ModelAndView handleFormUpload(@RequestParam("pic") MultipartFile file, @RequestParam("langSelect") String langDict, Model map) throws Exception{
 		try {
 			if (!file.isEmpty()) {
 				StringBuilder sb = new StringBuilder();
@@ -221,9 +222,9 @@ public class CapturaController {
 	    	    ClarifaiClient clarifai = new ClarifaiClient(APP_ID, APP_SECRET);
 	    	    List<RecognitionResult> results = clarifai.recognize(new RecognitionRequest(file.getBytes()));
 
-	    		authenticator.setCurrentWord(results.get(0).getTags().get(0).getName());
 	    		authenticator.setCurrentImage(sb.toString());	   
-	    		authenticator.setCurrentLanguageDictionary(langDict); 		
+	    		authenticator.setCurrentLanguageDictionary(langDict);	
+	    		authenticator.setCurrentWord(translate(results.get(0).getTags().get(0).getName(), langDict));
 
 	    		String curr_word = authenticator.getCurrentWord();
 	    		String curr_img = authenticator.getCurrentImage();
@@ -334,6 +335,24 @@ public class CapturaController {
 		} catch (NullPointerException e) {
 			return new ModelAndView("updateWord", "message", "You are a guest, please login to view this feature<br>");
 		}
+	}
+	
+	public String translate(String word, String lang) throws Exception {
+		Translate.setClientId("captura");
+	    Translate.setClientSecret("9AnUiVone9beKHlpardalpp2qcIWSzFtdvPamXgVN28=");
+	    //String OAuth = Translate.getToken("captura", "9AnUiVone9beKHlpardalpp2qcIWSzFtdvPamXgVN28");
+	    
+	    String translation = word;
+	    
+	    if(lang.equals("Spanish")) {
+	    	translation = Translate.execute(word, Language.ENGLISH, Language.SPANISH);
+	    } else if(lang.equals("French")) {
+	    	translation = Translate.execute(word, Language.ENGLISH, Language.FRENCH);
+	    } else if(lang.equals("German")) {
+	    	translation = Translate.execute(word, Language.ENGLISH, Language.GERMAN);
+	    }
+	    
+	    return translation;
 	}
 	
 }

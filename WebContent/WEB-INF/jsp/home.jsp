@@ -7,6 +7,9 @@
 
 <link rel="stylesheet" type="text/css" href="frameworks/styles.css">
 <link href='https://fonts.googleapis.com/css?family=Comfortaa|Lato:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link rel="shortcut icon" href="images/captura_mini.png"/>
+<link rel="apple-touch-icon" href="images/captura_apple_icon.png">
+
 </head>
 <body>
 	<br>
@@ -15,13 +18,13 @@
 		<h2 class="ptext">Welcome back ${message}!</h2>
 		<br>
 		<br>
-		<div style="display:-webkit-box; margin-left: 37%;">
-			<a href="home.html" class="green round-button large"><span class="glyphicon glyphicon-home large" aria-hidden="true"></span></a>
+		<div style="display:-webkit-inline-box;">
+			<a href="home.html" class="teal round-button large"><span class="glyphicon glyphicon-home large" aria-hidden="true"></span></a>
 			<a href="camera.html" class="red round-button large"><span class="glyphicon glyphicon-camera large" aria-hidden="true"></span></a>
 		</div>
-		<div style="display:-webkit-box; margin-left: 37%;">
+		<div style="display:-webkit-inline-box;">
 			<a href="dictionary.html" class="orange round-button large"><span class="glyphicon glyphicon-book large" aria-hidden="true"></span></a>
-			<a href="settings.html" class="blue round-button large"><span class="glyphicon glyphicon-cog large" aria-hidden="true"></span></a>
+			<a href="settings.html" class="green round-button large"><span class="glyphicon glyphicon-cog large" aria-hidden="true"></span></a>
 		</div>
 		<br>
 		<br>

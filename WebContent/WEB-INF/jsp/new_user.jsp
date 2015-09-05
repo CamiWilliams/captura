@@ -6,17 +6,19 @@
 <link href="frameworks/bootstrap-3.3.5-dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css" href="frameworks/styles.css">
 <link href='https://fonts.googleapis.com/css?family=Comfortaa|Lato:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+<link rel="shortcut icon" href="images/captura_mini.png"/>
+<link rel="apple-touch-icon" href="images/captura_apple_icon.png">
 
 </head>
 <body>
 	<br>
-	<div>
+	<div style="text-align:center">
 		<div class="logo">captura</div>
-		<div style="display:-webkit-box; margin-left: 45%;" class="center">
-			<div class="green round-button small"></div>
+		<div style="display: -webkit-inline-box;">
+			<div class="teal round-button small"></div>
 			<div class="red round-button small"></div>
 			<div class="orange round-button small"></div>
-			<div class="blue round-button small"></div>
+			<div class="green round-button small"></div>
 		</div>
 		<br>
 		<form action="LoginServlet" method="POST">

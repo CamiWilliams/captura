@@ -8,15 +8,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
+import camiwilliams.captura.objects.LanguageDictionary;
 import camiwilliams.captura.objects.User;
+import camiwilliams.captura.objects.Word;
 
 public class Authenticator {
 
-	private static String DBurl = "/Users/camiwilliams/Documents/Demos/Maven/captura/src/main/java/camiwilliams/captura/mockDB.json";
 	private static Map<String, String> supportedLanguages;
 	private static Map<String, User> mockDB;
 	private static User currentUser;
@@ -26,34 +28,50 @@ public class Authenticator {
 	
 	public Authenticator() {
 		supportedLanguages = new HashMap<String, String>();
-		supportedLanguages = new HashMap<String, String>();
+		mockDB = new HashMap<String, User>();
 		supportedLanguages.put("English (US)", "en-us");
 		supportedLanguages.put("Spanish", "es-es");
 		supportedLanguages.put("French", "fr-fr");
-		supportedLanguages.put("Chinese", "ca-es");
 		supportedLanguages.put("German", "de-de");
 		
-		//Read from mockDB.json and fill mockDB
-		mockDB = new HashMap<String, User>();
-		JSONParser parser = new JSONParser();
-		Object obj = null;
-		try {
-			obj = parser.parse(new FileReader(DBurl));
-		} catch (ParseException | IOException e) {
-			e.printStackTrace();
-		}
-		JSONObject jsonObject = (JSONObject) obj;
-			
-		JSONObject users = (JSONObject) jsonObject.get("users");
-		Set set = users.keySet();
-		for(Object set_obj : set) {
-			JSONObject curr_user =(JSONObject) users.get(set_obj.toString());
-			User temp = new User((String) curr_user.get("name"), (String) curr_user.get("email"),
-					(String) curr_user.get("username"),(String) curr_user.get("password"),
-					(String) curr_user.get("nativeLang"));
-			mockDB.put(temp.getUsername(), temp);
-		}
-		
+		Firebase firebaseUsers = new Firebase("https://captura.firebaseio.com/users");
+		  // Attach an listener to read the data at our posts reference
+
+		firebaseUsers.addValueEventListener(new ValueEventListener() {
+		      @Override
+		      public void onDataChange(DataSnapshot snapshot) {
+		          System.out.println("There are " + snapshot.getChildrenCount() + " users");
+		          for (DataSnapshot userSnapshot: snapshot.getChildren()) {
+		            String username = (String) userSnapshot.child("username").getValue();
+		            String email = (String) userSnapshot.child("email").getValue();
+		            String name = (String) userSnapshot.child("name").getValue();
+		            String password = (String) userSnapshot.child("password").getValue();
+		            String nativeLang = (String) userSnapshot.child("nativeLang").getValue();
+		            ArrayList<LanguageDictionary> dictionaries = new ArrayList<LanguageDictionary>();
+		            for(DataSnapshot dictSnapshot : userSnapshot.child("dictionaries").getChildren()) {
+		            	String language = (String) dictSnapshot.child("language").getValue();
+			            ArrayList<Word> words = new ArrayList<Word>();
+			            for(DataSnapshot wordSnapshot : dictSnapshot.child("words").getChildren()) {
+			            	String image = (String) wordSnapshot.child("image").getValue();
+			            	String word = (String) wordSnapshot.child("word").getValue();
+			            	words.add(new Word(word, image));
+			            }
+			            LanguageDictionary temp = new LanguageDictionary(language);
+			            temp.setWords(words);
+			            dictionaries.add(temp);
+		            }
+		            
+		            User user = new User(name, email, username, password, nativeLang);
+		            user.setDictionaries(dictionaries);
+		            mockDB.put(username, user);
+		          }
+		      }
+
+		      @Override
+		      public void onCancelled(FirebaseError firebaseError) {
+		          System.out.println("The read failed: " + firebaseError.getMessage());
+		      }
+		  });
 	}
 	
 	public String authenticate(String username, String password) {
@@ -70,31 +88,16 @@ public class Authenticator {
 		if(mockDB.containsKey(username)) {
 			return "fail";
 		} else {
-			JSONObject newObj = new JSONObject();
-			newObj.put("name", name);
-			newObj.put("email", email);
-			newObj.put("username", username);
-			newObj.put("password", password);
-			newObj.put("nativeLang", nativeLang);
-			newObj.put("dictionaries", new ArrayList<JSONObject>());
-			
-			JSONParser parser = new JSONParser();
-			try {
-				Object obj = parser.parse(new FileReader(DBurl));
-				JSONObject jsonObject = (JSONObject) obj;
-				JSONObject users = (JSONObject) jsonObject.get("users");
+			Firebase firebaseNewUser = new Firebase("https://captura.firebaseio.com/users/"+username);
+			firebaseNewUser.child("name").setValue(name);
+			firebaseNewUser.child("email").setValue(email);
+			firebaseNewUser.child("username").setValue(username);
+			firebaseNewUser.child("password").setValue(password);
+			firebaseNewUser.child("nativeLang").setValue(nativeLang);
+			firebaseNewUser.child("dictionaries").child("0").child("language").setValue(nativeLang);
 
-				users.put(username, newObj);
-		        FileWriter file = new FileWriter(DBurl);
-	            file.write(jsonObject.toJSONString());
-	            file.flush();
-	            file.close();
-				User temp = new User(name, email, username, password, nativeLang);
-				mockDB.put(username, temp);
-
-			} catch (Exception e) {
-				return "fail";
-			}
+            User user = new User(name, email, username, password, nativeLang);
+			mockDB.put(username, user);
 			return "success";
 		}
 	}

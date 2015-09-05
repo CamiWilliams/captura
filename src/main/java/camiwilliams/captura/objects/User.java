@@ -5,13 +5,13 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 public class User {
 
-	private static String DBurl = "/Users/camiwilliams/Documents/Demos/Maven/captura/src/main/java/camiwilliams/captura/mockDB.json";
 	private String name;
 	private String email;
 	private String username;
@@ -26,14 +26,13 @@ public class User {
 		this.password = password;
 		this.nativeLang = nativeLang;
 		languages = new ArrayList<LanguageDictionary>();
-		languages.add(new LanguageDictionary(nativeLang));
 	}
 	
 	public String getName() {
 		return name;
 	}
 	
-	public void set(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	
@@ -73,72 +72,62 @@ public class User {
 		return languages;
 	}
 	
+	public void setDictionaries(List<LanguageDictionary> languages) {
+		this.languages = languages;
+	}
+	
 	public void addDictionary(LanguageDictionary dict) {
 		languages.add(dict);
-		
-		//DB work
-		JSONObject newObj = new JSONObject();
-		newObj.put("language", dict.getLanguage());
-		newObj.put("words", new ArrayList<JSONObject>());
-		
-		JSONParser parser = new JSONParser();
-		try {
-			Object obj = parser.parse(new FileReader(DBurl));
-			JSONObject jsonObject = (JSONObject) obj;
-			JSONObject users = (JSONObject) jsonObject.get("users");
-			JSONObject specificUser = (JSONObject) users.get(username);
-			JSONArray userDictionary = (JSONArray) specificUser.get("dictionaries");
-			userDictionary.add(newObj);
-	        FileWriter file = new FileWriter(DBurl);
-            file.write(jsonObject.toJSONString());
-            file.flush();
-            file.close();
+		Firebase firebaseAddDict = new Firebase("https://captura.firebaseio.com/users/"+username+"/dictionaries");
+		firebaseAddDict.addListenerForSingleValueEvent(new ValueEventListener() {
+		      @Override
+		      public void onDataChange(DataSnapshot snapshot) {
+		          System.out.println("There are " + snapshot.getChildrenCount() + " dictionaries for " + name);
+		          firebaseAddDict.child("" + snapshot.getChildrenCount()).child("language").setValue(dict.getLanguage());
+		          for(int i = 0; i < dict.getWords().size(); i++) {
+		        	  Word word = dict.getWords().get(i);
+			          firebaseAddDict.child("" + snapshot.getChildrenCount()).child("words").child("" + i).child("word").setValue(word.getString());
+			          firebaseAddDict.child("" + snapshot.getChildrenCount()).child("words").child("" + i).child("image").setValue(word.getImage());
+		          }
+		      }
 
-		} catch (Exception e) {
-			System.out.println(e.getClass().getName());
-		}
+		      @Override
+		      public void onCancelled(FirebaseError firebaseError) {
+		          System.out.println("The read failed: " + firebaseError.getMessage());
+		      }
+		  });
 	}
 	
 	public void removeDictionary(LanguageDictionary dict) {
-		LanguageDictionary removed = dict;
 		for(int i = 0; i < languages.size(); i++) {
 			LanguageDictionary curr = languages.get(i);
-			removed = curr;
 			if(dict.getLanguage().equals(curr.getLanguage())) {
 				languages.remove(i);
 				break;
 			}
 		}
 		
-		//DB work
-		JSONObject newObj = new JSONObject();
-		newObj.put("language", dict.getLanguage());
-		ArrayList<JSONObject> jsonWords = new ArrayList<JSONObject>();
-		for(Word w : removed.getWords()) {
-			JSONObject temp = new JSONObject();
-			temp.put("word", w.getString());
-			temp.put("image", w.getImage());
-			
-			jsonWords.add(temp);
-		}
-		newObj.put("words", jsonWords);
-		
-		JSONParser parser = new JSONParser();
-		try {
-			Object obj = parser.parse(new FileReader(DBurl));
-			JSONObject jsonObject = (JSONObject) obj;
-			JSONObject users = (JSONObject) jsonObject.get("users");
-			JSONObject specificUser = (JSONObject) jsonObject.get(username);
-			JSONArray userDictionary = (JSONArray) jsonObject.get("dictionaries");
-			
-			userDictionary.remove(newObj);
-	        FileWriter file = new FileWriter(DBurl);
-            file.write(jsonObject.toJSONString());
-            file.flush();
-            file.close();
+		Firebase firebaseAddDict = new Firebase("https://captura.firebaseio.com/users/"+username+"/dictionaries");
+		firebaseAddDict.addListenerForSingleValueEvent(new ValueEventListener() {
+		      @Override
+		      public void onDataChange(DataSnapshot snapshot) {
+		    	  for(DataSnapshot lds : snapshot.getChildren()) {
+		    		  for(DataSnapshot lds_child : lds.getChildren()) {
+		    			  if(lds_child.getValue().equals(dict.getLanguage())) {
+			    			  Firebase toremove = new Firebase("https://captura.firebaseio.com/users/"+username+"/dictionaries/" + lds.getKey());
+			    			  toremove.setValue(null);
+			    			  return;  
+			    		  }  
+		    		  }
+		    	  }
+		      }
 
-		} catch (Exception e) {
-			
-		}
+		      @Override
+		      public void onCancelled(FirebaseError firebaseError) {
+		          System.out.println("The read failed: " + firebaseError.getMessage());
+		      }
+		  });
+
+		
 	}
 }

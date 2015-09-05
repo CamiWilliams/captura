@@ -7,6 +7,9 @@
 <link rel="stylesheet" type="text/css" href="frameworks/styles.css">
 <link href='https://fonts.googleapis.com/css?family=Comfortaa|Lato:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
 
+<link rel="shortcut icon" href="images/captura_mini.png"/>
+<link rel="apple-touch-icon" href="images/captura_apple_icon.png">
+
 <script>
 function play(speed) {
 	var word = document.getElementById('word').innerHTML;
@@ -43,29 +46,25 @@ function play(speed) {
 	<div class="content">
 		<div class="logo">captura</div>
 		<div style="display:-webkit-inline-box;">
-			<a href="home.html" class="green round-button medium"><span class="glyphicon glyphicon-home medium" aria-hidden="true"></span></a>
+			<a href="home.html" class="teal round-button medium"><span class="glyphicon glyphicon-home medium" aria-hidden="true"></span></a>
 			<a href="camera.html" class="red round-button medium"><span class="glyphicon glyphicon-camera medium" aria-hidden="true"></span></a>
 			<a href="dictionary.html" class="orange round-button medium"><span class="glyphicon glyphicon-book medium" aria-hidden="true"></span></a>
-			<a href="settings.html" class="blue round-button medium"><span class="glyphicon glyphicon-cog medium" aria-hidden="true"></span></a>
+			<a href="settings.html" class="green round-button medium"><span class="glyphicon glyphicon-cog medium" aria-hidden="true"></span></a>
 		</div>
 		<br>
 		<br>
 		<div class="ptext">
-			<div class="col-md-4" style="margin-left: 18%;">
-				<div id="word">${model.word}</div>
-				<div class="info">
-					<h3>Pronunciation</h3>
-					<button class="form-control speed" id="play" onclick="play(1);">></button>
-					<button class="form-control speed" id="play" onclick="play(2);">>></button>
-					<button class="form-control speed" id="play" onclick="play(3);">>>></button>
-				</div>
-				${model.decide}
-				
+			${model.message}
+			<div id="word">${model.word}</div>
+			<div class="info">
+				<h3>Pronunciation</h3>
+				<button class="form-control speed" id="play" onclick="play(1);">></button>
+				<button class="form-control speed" id="play" onclick="play(2);">>></button>
+				<button class="form-control speed" id="play" onclick="play(3);">>>></button>
 			</div>
-			<div class="col-md-4">
-				${model.message}
-			</div>
+			${model.decide}
 		</div>
+		<br>
 		<br>
 	</div>
 </body>
