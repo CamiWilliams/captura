@@ -1,0 +1,6 @@
+camiwilliams/captura/controller/CapturaController.class
+camiwilliams/captura/Authenticator.class
+camiwilliams/captura/objects/LanguageDictionary.class
+camiwilliams/captura/objects/Word.class
+camiwilliams/captura/objects/User.class
+camiwilliams/captura/servlet/LoginServlet.class

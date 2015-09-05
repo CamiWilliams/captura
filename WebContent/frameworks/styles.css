@@ -1,0 +1,167 @@
+body {
+	background-color: #ffffff;
+	font-family: Arial;
+}
+
+.content {
+	width: 100%;
+	text-align: center;
+}
+
+.logo {
+	color: #38cfb0;
+	text-align: center;
+	font-size: 96px;
+	font-family: 'Comfortaa', cursive;
+}
+
+.ptext {
+	font-family: 'Lato', sans-serif;
+}
+
+.center {
+	width: 100%;
+}
+
+.custom {
+	width: 100%;
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+	background-color: #02779E;
+	text-align: center;
+}
+
+.btn-default {
+	width: 25%;
+	background-color: #02779E;
+	border: 0;
+	border-radius: 0;
+	font-size: 32px;
+}
+.btn-default:focus {
+	background-color: #015f7e;
+}
+
+.glyphicon {
+    color: #ffffff;
+}
+
+.glyphicon-play {
+    color: #000000;
+}
+
+.glyphicon.medium {
+    margin: 18.25px;
+    font-size: 34px;
+}
+
+.glyphicon.large {
+    margin: 39.25px;
+    font-size: 65px;
+}
+
+.round-button {
+    display:block;
+    width:50px;
+    height:50px;
+    line-height:50px;
+    border-radius: 50%;
+    color:#f5f5f5;
+    text-align:center;
+    text-decoration:none;
+    font-size:20px;
+    font-weight:bold;
+    margin: 10px;
+}
+
+.green {
+	background: #96d13d;
+}
+
+.round-button:hover.green {
+    background: #6aa112;
+}
+
+.red {
+	background: #ff6363;
+}
+
+.round-button:hover.red {
+    background: #d13636;
+}
+
+.orange {
+	background: #ffb700;
+}
+
+.round-button:hover.orange {
+    background: #d18800;
+}
+
+.blue {
+	background: #5ec4ff;
+}
+
+.round-button:hover.blue {
+    background: #329cd1;
+}
+
+.purple {
+	background: #b15eff;
+}
+
+.round-button:hover.purple {
+    background: #8232d1;
+}
+
+.round-button.small {
+	margin: 5px;
+    width:15px;
+    height:15px;
+}
+
+.round-button.medium {
+	margin: 5px;
+    width:75px;
+    height:75px;
+}
+
+.round-button.large {
+	margin: 5px;
+    width:150px;
+    height:150px;
+}
+
+#word {
+	font-size: 60px;
+}
+
+.speed {
+	width: 50px;
+}
+
+.info {
+	display:-webkit-inline-box;
+}
+
+.info h3 {
+	margin: 8px;
+}
+
+.info button {
+	margin: 5px;
+}
+
+.word {
+    margin-left: 30px;
+    margin-right: 70px;
+    font-size: 50px !important;
+}
+
+.play {
+	width: 50px;
+    position: absolute;
+    right: 5%;
+    margin: 20px;
+}
