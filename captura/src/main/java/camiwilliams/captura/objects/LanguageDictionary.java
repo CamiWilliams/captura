@@ -36,11 +36,11 @@ public class LanguageDictionary {
 		this.words = words;
 	}
 	
-	public void addWord(Word w) {
+	public void addWord(final Word w) {
 		words.add(w);
 		
 		Authenticator auth = new Authenticator();
-		User curr = auth.getCurrentUser();
+		final User curr = auth.getCurrentUser();
 		Firebase firebaseDict = new Firebase("https://captura.firebaseio.com/users/"+curr.getUsername()+"/dictionaries/");
 		firebaseDict.addListenerForSingleValueEvent(new ValueEventListener() {
 		      @Override
@@ -53,9 +53,12 @@ public class LanguageDictionary {
 		    		  }
 		    	  }
 		  		  Firebase firebaseWordDict = new Firebase("https://captura.firebaseio.com/users/"+curr.getUsername()+"/dictionaries/"+num+"/words/");
+		  		  final String path = "https://captura.firebaseio.com/users/"+curr.getUsername()+"/dictionaries/"+num+"/words/";
 		  		  firebaseWordDict.addListenerForSingleValueEvent(new ValueEventListener() {
 				      @Override
 				      public void onDataChange(DataSnapshot snapshot) {
+				  		  Firebase firebaseWordDict = new Firebase(path);
+
 				          firebaseWordDict.child("" + snapshot.getChildrenCount()).child("word").setValue(w.getString());
 				          firebaseWordDict.child("" + snapshot.getChildrenCount()).child("image").setValue(w.getImage());
 				      }
@@ -74,7 +77,7 @@ public class LanguageDictionary {
 		  });
 	}
 	
-	public void removeWord(Word w) {
+	public void removeWord(final Word w) {
 		for(int i = 0; i < words.size(); i++) {
 			Word curr = words.get(i);
 			if(curr.getString().equals(w.getString())) {
@@ -84,7 +87,7 @@ public class LanguageDictionary {
 		}
 		
 		Authenticator auth = new Authenticator();
-		User curr = auth.getCurrentUser();
+		final User curr = auth.getCurrentUser();
 		Firebase firebaseDict = new Firebase("https://captura.firebaseio.com/users/"+curr.getUsername()+"/dictionaries/");
 		firebaseDict.addListenerForSingleValueEvent(new ValueEventListener() {
 		      @Override
@@ -97,9 +100,11 @@ public class LanguageDictionary {
 		    		  }
 		    	  }
 		  		  Firebase firebaseWordDict = new Firebase("https://captura.firebaseio.com/users/"+curr.getUsername()+"/dictionaries/"+num+"/words/");
+		  		  final String path="https://captura.firebaseio.com/users/"+curr.getUsername()+"/dictionaries/"+num+"/words/";
 		  		  firebaseWordDict.addListenerForSingleValueEvent(new ValueEventListener() {
 				      @Override
 				      public void onDataChange(DataSnapshot snapshot) {
+				  		  Firebase firebaseWordDict = new Firebase(path);
 				    	  for(DataSnapshot word : snapshot.getChildren()) {
 				    		  if(word.child("word").getValue().equals(w.getString())) {
 				    			  firebaseWordDict.child(word.getKey()).setValue(null);

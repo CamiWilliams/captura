@@ -75,13 +75,12 @@ public class Authenticator {
 	}
 	
 	public String authenticate(String username, String password) {
-		if(!mockDB.containsKey(username)) {
-			return "fail";
-		} else if(password.equals(mockDB.get(username).getPassword())) {
-			return "success";
-		} else {
-			return "fail";
+		for(String key : mockDB.keySet()) {
+			if(key.equals(username) && mockDB.get(key).getPassword().equals(password)) {
+				return "success";
+			}
 		}
+		return "fail";
 	}
 	
 	public String newUser(String name, String email, String username, String password, String nativeLang) {

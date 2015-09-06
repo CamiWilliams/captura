@@ -31,16 +31,16 @@
       		</div>
       		<div class="col-md-8">
 				<select name="langSelect" class="form-control ptext">
-					<option value="English (US)">English (US)</option>
+							${message}
 				</select>
 			</div>
 			<br>
 			<br>
 			<br>
-      		<input type="file" name="pic" accept="image/*" class="ptext">
+      		<input type="file" name="pic" accept="image/*" class="ptext" style="display: -webkit-inline-box;">
 			<br>
 			<br>
-  			<input class="form-control" type="submit" value="Upload">
+  			<input class="form-control" type="submit" value="Upload" style="display: -webkit-inline-box;">
 		</form>
 		<br>
 		<br>

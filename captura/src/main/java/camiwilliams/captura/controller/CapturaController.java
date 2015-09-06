@@ -200,11 +200,13 @@ public class CapturaController {
 		try {
 			User user = authenticator.getCurrentUser();
 			List<LanguageDictionary> dictionaries = user.getDictionaries();
-			String message = "";
+			String work = "";
 			for(LanguageDictionary ld : dictionaries) {
-				message += "<option value='" + ld.getLanguage() + "'>" + ld.getLanguage() + "</option>";
+				work += "<option value='" + ld.getLanguage() + "'>" + ld.getLanguage() + "</option>";
 			}
 			
+			final String message = work;
+			System.out.println(message);
 			return new ModelAndView("camera", "message", message);
 		} catch(NullPointerException e) {
 			return new ModelAndView("camera", "notwork", "You are a guest, please login to view this feature<br>");
@@ -248,7 +250,7 @@ public class CapturaController {
 	    						+ "</div><br>Your " + curr_ld.getLanguage() + " dictionary already contains this word!"
 		    					+ "<br> Would you like to update the picture to this one?<br><br><br><button type='button'"
 		    					+ "class='form-control'  onclick='window.location.href=\"updateWord.html\"' "
-		    					+ ">Update</button>";
+		    					+ "style='display: inline-block'>Update</button>";
 	    				Map<String, String> model = new HashMap<String, String>();
 	    				model.put("word", curr_word);
 	    				model.put("message", message);
@@ -262,7 +264,7 @@ public class CapturaController {
 	    		 	 + "</div><br>Your " + curr_ld.getLanguage() + " dictionary does not contain this word!"
 	    			 + "<br>Would you like to add this word to your " + curr_ld.getLanguage() 
 	    			 + " dictionary?<br><br><br><button type='button' class='form-control' "
-	    			 + "onclick='window.location.href=\"addWord.html\"'>Add</button>";
+	    			 + "onclick='window.location.href=\"addWord.html\"' style='display: inline-block'>Add</button>";
 
 				Map<String, String> model = new HashMap<String, String>();
 				model.put("word", curr_word);

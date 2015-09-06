@@ -21,7 +21,7 @@
 			<div class="green round-button small"></div>
 		</div>
 		<br>
-		<form action="LoginServlet" method="POST">
+		<form action="LoginServlet" method="POST" style="display: inline-block;">
 			<input type="text" name="name" class="form-control ptext" placeholder="Name"> <br>
 			<input type="email" name="email" class="form-control ptext" placeholder="Email"> <br>
 			<input type="text" name="username" class="form-control ptext" placeholder="Username"> <br>
@@ -35,12 +35,12 @@
 			</select>
 			<br>
 			<br>
-			<br>
 			<input type="submit" class="form-control" value="Login"/>
+			<br>
+			<button type="button" class="form-control ptext" onclick="window.location.href='index.html'">
+				Cancel
+	        </button>
 		</form>
-		<button type="button" class="form-control ptext" onclick="window.location.href='index.html'">
-			Cancel
-        </button>
 	</div>
       ${message}
 </body>

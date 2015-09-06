@@ -25,14 +25,14 @@
 		<br>
 		<h2 class="ptext">Settings</h2>
 		<br>
-		<form method="POST" action="settings.html" commandName="removeDictionary">
+		<form method="POST" action="settings.html" commandName="removeDictionary" style="display: inline-block">
 			<div class="col-md-7">
 				<select name="removeDictionary" class="form-control ptext">
 					${removeLanguages}
 				</select>
 			</div>
 			<div class="col-md-4">
-				<button type="submit" class="form-control ptext">Remove Dictionary</button>
+				<button type="submit" class="form-control ptext" style="display: inline-block">Remove Dictionary</button>
 			</div>
 		</form>	
 		<br>
@@ -40,7 +40,7 @@
 		<br>
 		<p class="ptext">Questions? Contact support at cami@clarifai.com</p>
 		<br>
-		<button type="button" class="form-control ptext" onclick="window.location.href='index.html'">
+		<button type="button" class="form-control ptext" onclick="window.location.href='index.html'" style="display: inline-block">
         	Logout
         </button>
 		${notwork}

@@ -150,7 +150,7 @@ body {
 }
 
 .speed {
-	width: 50px;
+	width: 50px !important;
 }
 
 .info {
@@ -183,4 +183,8 @@ body {
 }
 .list-group {
 	padding: 10px;
+}
+.form-control {
+	border-radius: 0;
+	width: 500px;
 }

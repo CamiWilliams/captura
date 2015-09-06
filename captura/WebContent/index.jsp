@@ -22,15 +22,17 @@
 			<div class="green round-button small"></div>
 		</div>
 		<br>
-		<form action="LoginServlet" method="POST">
+		<form action="LoginServlet" method="POST" style="display: inline-block;">
 			<input type="text" name="username" class="form-control" placeholder="Username"> <br>
 			<input type="password" name="password" class="form-control" placeholder="Password"> <br>
 			<br>
 			<input type="submit" class="form-control ptext" value="Login"/>
+			<br>
+			<button type="button" class="form-control ptext" onclick="window.location.href='new_user.html'">
+				Create new account
+	        </button>
 		</form>
-		<button type="button" class="form-control ptext" onclick="window.location.href='new_user.html'">
-			Create new account
-        </button>
+		<br>
 	</div> ${message}
 </body>
 </html>

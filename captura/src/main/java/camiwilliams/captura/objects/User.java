@@ -76,12 +76,13 @@ public class User {
 		this.languages = languages;
 	}
 	
-	public void addDictionary(LanguageDictionary dict) {
+	public void addDictionary(final LanguageDictionary dict) {
 		languages.add(dict);
 		Firebase firebaseAddDict = new Firebase("https://captura.firebaseio.com/users/"+username+"/dictionaries");
 		firebaseAddDict.addListenerForSingleValueEvent(new ValueEventListener() {
 		      @Override
 		      public void onDataChange(DataSnapshot snapshot) {
+		  		  Firebase firebaseAddDict = new Firebase("https://captura.firebaseio.com/users/"+username+"/dictionaries");
 		          System.out.println("There are " + snapshot.getChildrenCount() + " dictionaries for " + name);
 		          firebaseAddDict.child("" + snapshot.getChildrenCount()).child("language").setValue(dict.getLanguage());
 		          for(int i = 0; i < dict.getWords().size(); i++) {
@@ -98,7 +99,7 @@ public class User {
 		  });
 	}
 	
-	public void removeDictionary(LanguageDictionary dict) {
+	public void removeDictionary(final LanguageDictionary dict) {
 		for(int i = 0; i < languages.size(); i++) {
 			LanguageDictionary curr = languages.get(i);
 			if(dict.getLanguage().equals(curr.getLanguage())) {
