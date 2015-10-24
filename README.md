@@ -88,8 +88,10 @@ The Servlet code contains my LoginServlet, like I talked about before. Again, th
 As far as implementing these functions, if you want to get a value from the form, you need to use `request.getParameter("name")`, where name is the value specified in the tag within the form. To redirect the page from the servlet, use `rd = request.getRequestDispatcher("/new_user.html");` followed by `rd.forward(request, response);`.
 
 #####Authenticator
+The Authenticator is where you read from your database. In this project, I used [Firebase](https://www.firebase.com/), but you can use [Parse](https://parse.com/) if that floats your boat, or even write your own database! From here, you will access your current user's information. If you are doing this for a hackathon, it doesn't have to be the most secure thing in the world. If you are looking to expand your project, I would recommend either encrypting this somehow, or scratching it and going for a different approach :) Regardless, any logic interacting with your database or the current user's state would be done in this file.
 
 #####Controller
+Finally, the most fun part. Your controller! YAY! This part always takes the longest, because it is where the bulk of your code will go.
 
 #####Objects
 This is the least necessary part of your code, but also probably the most simple. It is where I defined object to make my code more readable. That's it!
