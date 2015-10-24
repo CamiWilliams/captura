@@ -46,8 +46,34 @@ __/WebContent/WEB-INF/yourprojectname-servlet.xml__ In this file, you define you
 
 ###Now you have the icky stuff done, let's do fun stuff!
 ####Web Stuff
+All of your JSP (aka HTML) files should be under 'WebContent/WEB-INF/jsp'. The only exception to this rule is your 'index.html' file, which should be located under 'WebContent/WEB-INF'. In my project, I have 'WebContent/frameworks', which contains any CSS I have, and 'WebContent/images', which contains all of my project images. For each page in your application, you need to create a new JSP file. This can get repetitive, but that is one of the many joys of Maven.
+
+For the most part, these files are written exactly like HTML. The most important parts are the forms and the models. 
+
+Models look like `${message}`. These insert code into the JSP from your controller before the page loads. We will look more at that later.
+
+There are two types of forms I use in this project. One that calls my servlet, and one that calls my controller. The forms that call my servlet look as such:
+```
+		<form action="LoginServlet" method="POST" style="display: inline-block;">
+			...
+			<input type="submit" class="form-control ptext" value="Login"/>
+		</form>
+```
+The action must be the name you specified under 'servlet-name' in your web.xml file. The method is up to you, you can do a POST or a GET. Finally, one input type must be 'sumbit' and have a value you will reference later.
+
+The other form calls a controller and looks like this:
+```
+		<form method="POST" action="settings.html" commandName="removeDictionary" style="display: inline-block">
+    ...
+				<button type="submit" class="form-control ptext" style="display: inline-block">Remove Dictionary</button>
+		</form>	
+```
+In this case, I specify, again, my method either POST or GET, my action, which is the current page I am calling from, and the commandName, which is the function name. Again, we need one input or button type as 'submit'. In this form, we do not need to specify a value for the submit call.
+
+And that's basically it for the web stuff!
 
 ####Server Stuff
+
 
 ###Let's run this thing!
 Now that we have all that junk done, let's run this thing! Right click on your project and click 'Maven build...' then under 'Goals' type 'clean install'. All should be running properly. Then, right click on your Tomcat server under 'Servers', and click 'Add and Remove'. Add your project, and run the Tomcat server. Assuming that ran properly, head over to your localhost:8080 and you should see your application! Yay!
