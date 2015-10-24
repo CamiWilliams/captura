@@ -31,7 +31,7 @@ __/WebContent/WEB-INF/web.xml__ This file is important because it defines where 
     <url-pattern>*.html</url-pattern>
   </servlet-mapping>
 ```
-In Maven, there are `Servlets` and `Controllers`. A servlet handles authentication logic like logging in, verifying and account, etc. A controller handles simple page logic, like using Clarifa or other APIs, or counting the number of llamas on a website. In 'web.xml`, you will define your servlets. The 'servlet-name' will be what you will refer to your servlet as in your JSP and the 'servlet-class' is the filepath to your servlet. For the 'servlet-mapping', the name is the same as before, and the 'url-pattern' should be /serv#, # being incremented with each servlet you add.
+In Maven, there are `Servlets` and `Controllers`. A servlet handles authentication logic like logging in, verifying and account, etc. A controller handles simple page logic, like using Clarifai or other APIs, or counting the number of llamas on a website. In `web.xml`, you will define your servlets. The `servlet-name` will be what you will refer to your servlet as in your JSP and the `servlet-class` is the filepath to your servlet. For the `servlet-mapping`, the name is the same as before, and the `url-pattern` should be /serv#, # being incremented with each servlet you add.
 ```
   <servlet>
     <servlet-name>LoginServlet</servlet-name>
