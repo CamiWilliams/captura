@@ -3,6 +3,8 @@ A language education application created for PennApps 2015. Captura showcases Cl
 
 It will help if you read up on Tomcat and Java Maven to understand this project!
 
+Note that the following explanation is not perfect, it is just the way I understand it! Feel free to propose changes to anything that could use better explanation :)
+
 ##Setting up your environment
 Once you have STS downloaded, open it and set up your [environment for Tomcat](http://crunchify.com/step-by-step-guide-to-setup-and-install-apache-tomcat-server-in-eclipse-development-environment-ide/). Once you see Tomcat under your 'Servers' tab, create a new Maven project and select 'archetype-quickstart' for your Archetype. Your GroupID is who owns the project (ie your name) and the ArtifactID is the name of your application.
 
@@ -41,3 +43,15 @@ In Maven, there are `Servlets` and `Controllers`. A servlet handles authenticati
   </servlet-mapping>
 ```
 __/WebContent/WEB-INF/yourprojectname-servlet.xml__ In this file, you define your controller and finalize the mapping between JSP and HTML. You can copy this [file](https://github.com/CamiWilliams/captura/blob/master/captura/WebContent/WEB-INF/captura-servlet.xml) from me, because generally it is the same for everyone. The only thing you need to change here is `context:component-scan` to your controller package.
+
+###Now you have the icky stuff done, let's do fun stuff!
+####Web Stuff
+
+####Server Stuff
+
+###Let's run this thing!
+Now that we have all that junk done, let's run this thing! Right click on your project and click 'Maven build...' then under 'Goals' type 'clean install'. All should be running properly. Then, right click on your Tomcat server under 'Servers', and click 'Add and Remove'. Add your project, and run the Tomcat server. Assuming that ran properly, head over to your localhost:8080 and you should see your application! Yay!
+
+This was a very general overview of what went into this project, if you have any questions, tweet me @cwillycs or email me cami@clarifai.com with the subject 'Hi Cami I h8 Maven'.
+
+Best of luck!
