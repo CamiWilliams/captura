@@ -54,26 +54,45 @@ Models look like `${message}`. These insert code into the JSP from your controll
 
 There are two types of forms I use in this project. One that calls my servlet, and one that calls my controller. The forms that call my servlet look as such:
 ```
-		<form action="LoginServlet" method="POST" style="display: inline-block;">
-			...
-			<input type="submit" class="form-control ptext" value="Login"/>
-		</form>
+<form action="LoginServlet" method="POST" style="display: inline-block;">
+	...
+	<input type="submit" class="form-control ptext" value="Login"/>
+</form>
 ```
 The action must be the name you specified under 'servlet-name' in your web.xml file. The method is up to you, you can do a POST or a GET. Finally, one input type must be 'sumbit' and have a value you will reference later.
 
 The other form calls a controller and looks like this:
 ```
-		<form method="POST" action="settings.html" commandName="removeDictionary" style="display: inline-block">
-    ...
-				<button type="submit" class="form-control ptext" style="display: inline-block">Remove Dictionary</button>
-		</form>	
+<form method="POST" action="settings.html" commandName="removeDictionary" style="display: inline-block">
+	...
+	<button type="submit" class="form-control ptext" style="display: inline-block">Remove Dictionary</button>
+</form>	
 ```
 In this case, I specify, again, my method either POST or GET, my action, which is the current page I am calling from, and the commandName, which is the function name. Again, we need one input or button type as 'submit'. In this form, we do not need to specify a value for the submit call.
 
 And that's basically it for the web stuff!
 
 ####Server Stuff
+Now this is the most involved part. Server code is found in my 'src/main' folder. For the webapp side, just copy your index.jsp into the folder. For the java side, I divided it into 3 parts:
 
+#####Launch
+The (Launch)[https://github.com/CamiWilliams/captura/blob/master/captura/src/main/java/launch/Launcher.java] code you can just copy directly. Be sure your webport is the same as specified under Tomcat, the default is 8080. 
+
+#####Servlet
+The Servlet code contains my LoginServlet, like I talked about before. Again, this code I mainly use for Authentication. You may or may not decide that you will need this. The important things to note for Serlvet code are as follows:
+
+* Above the class declaration, you must include `@WebServlet("/LoginServlet")` which will be the same name as defined in your serlvet-name. 
+* Your servlet must extend `HttpServlet`
+* Your form's method code must correspond to `doGet` or `doPost`
+
+As far as implementing these functions, if you want to get a value from the form, you need to use `request.getParameter("name")`, where name is the value specified in the tag within the form. To redirect the page from the servlet, use `rd = request.getRequestDispatcher("/new_user.html");` followed by `rd.forward(request, response);`.
+
+#####Authenticator
+
+#####Controller
+
+#####Objects
+This is the least necessary part of your code, but also probably the most simple. It is where I defined object to make my code more readable. That's it!
 
 ###Let's run this thing!
 Now that we have all that junk done, let's run this thing! Right click on your project and click 'Maven build...' then under 'Goals' type 'clean install'. All should be running properly. Then, right click on your Tomcat server under 'Servers', and click 'Add and Remove'. Add your project, and run the Tomcat server. Assuming that ran properly, head over to your localhost:8080 and you should see your application! Yay!
