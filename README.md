@@ -76,7 +76,7 @@ And that's basically it for the web stuff!
 Now this is the most involved part. Server code is found in my 'src/main' folder. For the webapp side, just copy your index.jsp into the folder. For the java side, I divided it into 3 parts:
 
 #####Launch
-The (Launch)[https://github.com/CamiWilliams/captura/blob/master/captura/src/main/java/launch/Launcher.java] code you can just copy directly. Be sure your webport is the same as specified under Tomcat, the default is 8080. 
+The [Launch](https://github.com/CamiWilliams/captura/blob/master/captura/src/main/java/launch/Launcher.java) code you can just copy directly. Be sure your webport is the same as specified under Tomcat, the default is 8080. 
 
 #####Servlet
 The Servlet code contains my LoginServlet, like I talked about before. Again, this code I mainly use for Authentication. You may or may not decide that you will need this. The important things to note for Serlvet code are as follows:
