@@ -93,6 +93,31 @@ The Authenticator is where you read from your database. In this project, I used 
 #####Controller
 Finally, the most fun part. Your controller! YAY! This part always takes the longest, because it is where the bulk of your code will go.
 
+Before you start, make sure above your class declaration, you have `@Controller`. Above every method declaration, you need to include a `@RequestMapping`. This maps your JSP files to your functions. What does this mean? For every JSP file you have, you need to have a method mapping to it from your Controller. This is absolutely necessary and it is usually where the bulk of most silly errors comes from. Here is an example:
+```
+@RequestMapping(value = "/new_user", method = RequestMethod.GET)
+	public ModelAndView handleNewUser(Model map) {
+		String message = "<b>Welcome new friend!</b>";
+		return new ModelAndView("new_user", "welcome", message);
+	}
+```
+The value represents the page this method belongs to. A page can be accessed via a GET request or a POST request. Make sure that method of the form you attribute to navigating your page corresponds to the method of this function. Every function has the parameter `Model map`. This parameter is what allows you to insert code into the JSP file. In this case, we are adding the `String message` to the `new_user.jsp` file. In the JSP file, there would be a `${welcome}` tag, where the `message` would go. You can also add these strings as a map, if you want to insert code in more than one place on a page.
+
+Getting values from the JSP is slightly different from getting them for a Servlet. You would need to include a parameter in the method declaration. For my form that uploads a file, as a parameter I have `@RequestParam("pic") MultipartFile file`, where "pic" is the value as specified in the input of the form. Form file uploads are always received as MultipartFiles. These work with Clarifai, however require the following logic:
+
+```
+StringBuilder sb = new StringBuilder();
+sb.append("data:image/png;base64,");
+sb.append(StringUtils.newStringUtf8(Base64.encodeBase64(file.getBytes(), false)));
+
+ClarifaiClient clarifai = new ClarifaiClient(APP_ID, APP_SECRET);
+List<RecognitionResult> results = clarifai.recognize(new RecognitionRequest(file.getBytes()));
+
+String first_tag = results.get(0).getTags().get(0).getName();
+```
+
+Besides that, the rest of this file is just like writting normal Java code. You can include functions that do not correspond to JSP pages as well. Not too bad!
+
 #####Objects
 This is the least necessary part of your code, but also probably the most simple. It is where I defined object to make my code more readable. That's it!
 
